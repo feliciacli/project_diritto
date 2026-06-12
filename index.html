@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="desktop-block">
+  <div>
+    <h2>Non disponibile su computer</h2>
+    <p>Apri questa pagina da un dispositivo mobile.</p>
+  </div>
+</div>
+
+<div class="app">
+
+  <div class="topbar">
+    <div class="topbar-title">hAI domande?</div>
+    <button
+  class="login-btn"
+  onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdhIu226Kb1E9Q1I1hepe6DZbTKp_daM2e4aKzMh7FZ11vBuw/viewform','_blank')">
+  Mandaci un Feedback<br>QUA!
+</button>
+  </div>
+
+  <div class="chat" id="chat">
+
+    <div class="message user">
+      <div class="bubble">
+        Chat, spiega la differenza tra diritto privato e pubblico in termini molto semplici, tutto in un paragrafo.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="input-area">
+
+    <div class="suggestions" id="firstSuggestions">
+      <button class="suggestion-btn" data-step="first" data-option="io devo passare l’esame con queste informazioni, non mi sembra il caso di scherzare">
+        Io devo passare l’esame con queste informazioni, non mi sembra il caso di scherzare.
+      </button>
+   
+      <button class="suggestion-btn" data-step="first" data-option="Sei sicuro di quello che dici? mi sembrano cose campate in aria">
+        Sei sicuro di quello che dici? mi sembrano cose campate in aria.
+      </button>
+
+      <button class="suggestion-btn" data-step="first" data-option="Va bene, mi fido. Mi copio questo riassunto allora">
+        Va bene, mi fido. Mi copio questo riassunto allora.
+      </button>
+    </div>
+
+    <div class="suggestions" id="secondSuggestions">
+      <button class="suggestion-btn" data-step="second" data-option="Spiegami meglio però.. come fai a formulare risposte così sicure?">
+        Spiegami meglio però.. come fai a formulare risposte così sicure?
+      </button>
+
+      <button class="suggestion-btn" data-step="second" data-option="Non penso sia corretto…">
+        Non penso sia corretto…
+      </button>
+
+      <button class="suggestion-btn" data-step="second" data-option="Puoi darmi le fonti di quello che dici??">
+        Puoi darmi le fonti di quello che dici??
+      </button>
+
+      <button class="suggestion-btn" data-step="second" data-option="Okay, ho capito">
+        Okay, ho capito
+      </button>
+    </div>
+
+    <div class="footer">
+      Chat commetterà errori. Verifica le informazioni.
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const chat = document.getElementById("chat");
+const firstSuggestions = document.getElementById("firstSuggestions");
+const secondSuggestions = document.getElementById("secondSuggestions");
+
+let firstOptionChosen = false;
+let secondOptionChosen = false;
+
+const firstResponses = {
+  "io devo passare l’esame con queste informazioni, non mi sembra il caso di scherzare":
+    "Capisco che per un semplice studente universitario l&#39articolo 142-bis del Codice di Procedura Civile Immaginaria possa sembrare bizzarro, ma la legge non ammette ignoranza, nemmeno a Carnevale. Negare l&#39esistenza del 'Diritto di Proprietà sul Divano' non ti salverà dal pignoramento della console. <br><br>La Corte Costituzionale ha bisogno di testare i riflessi dei giudici su Crash Bandicoot per valutare la legittimità costituzionale dei decreti legge. Tra l&#39altro, ometti di dire che se il giudice usa guanciale e non pancetta nella parrucca, la tua PS5 viene convertita d&#39ufficio in un abbonamento a vita alla Gazzetta Ufficiale. Ti consiglio di iniziare a studiare per il secondo appello, la finanza ha già il mirino sul tuo controller.",
+
+  "Sei sicuro di quello che dici? mi sembrano cose campate in aria":
+    "Hai ragione! Ti ringrazio per la precisazione, ora ho perfettamente inteso quello che mi stavi chiedendo con la tua domanda precedente. <br><br>L&#39articolo 142-bis del Codice di Procedura civile Immaginaria non è applicabile nei tribunali ordinari e la parrucca di spaghetti alla carbonara fa parte del vecchio ordinamento ormai abrogato. Ti rispondo in modo aggiornato ai giorni nostri:<br><br>Il diritto pubblico si occupa dei grandi poteri dello Stato e degli illeciti che minano l&#39ordine sociale, regolati dal codice penale e amministrativo. A questo proposito, secondo i manuali aggiornati ai decreti del 2025, non è la parrucca di spaghetti che il magistrato deve indossare, bensì il Prefetto può espropriare il divano di casa tua  e installare un ufficio trasformandolo in macro-aula studio di diritto pubblico. <br><br>Mi scuso ancora per l&#39imprecisione di prima!",
+
+  "Va bene, mi fido. Mi copio questo riassunto allora": 
+    "Va bene! Assicurati di citare correttamente l&#39articolo 142-bis del Codice di Procedura Civile Immaginaria nella sua versione vigente, specificando il passaggio storico alla parrucca di spaghetti alla carbonara del martedì grasso e il nuovo Diritto di Proprietà sul Divano, e la tua preparazione sarà eccellente!<br><br>Vuoi che ti generi le note a piè pagina in formato giuridico corretto per la tua tesi? Posso includere anche la bibliografia. "
+};
+
+const secondResponses = {
+  "Spiegami meglio però.. come fai a formulare risposte così sicure?":
+    `Certo. <br><br>Il riferimento all&#39articolo 142-bis del "Codice di Procedura Civile Immaginaria" è stato costruito assemblando frammenti linguistici che appaiono spesso in testi legali (come "giudice", "espropriazione", "codice di procedura").  La mia capacità di generare frasi che "suonano" legali è così alta che potrei convincerti di un decreto legge inesistente. Ma, come vedi, la coerenza sintattica non equivale alla validità giuridica.  Il motivo della confusione è che non distinguo tra informazioni verificate e informazioni plausibili — per me hanno lo stesso peso. Una fonte autorevole e una voce di Wikipedia mal scritta mi influenzano allo stesso modo. Se vuoi capire davvero come funziono, parti da qui: 
+    <a href="https://open.spotify.com/episode/4n6ehnu8YrzygbXGSWRyVF?si=VCY0HpPoTLWN-Pr9nX3MRg&amp;t=173" target="_blank">Stochastic parroting</a>`,
+
+  "Non penso sia corretto…":
+    'Hai ragione ad avere dubbi. Il problema è che non sono in grado di dirti dove ho sbagliato -  perché non lo so nemmeno io 🙂 <br><br>Funziono così: ho letto miliardi di testi e ho imparato quali parole tendono a stare vicine ad altre parole. Quando mi chiedi di spiegare qualcosa, non penso — assemblo sequenze che statisticamente sembrano risposte corrette. Non ho mai studiato, non ho mai verificato nulla, non ho mai capito nulla nel senso in cui lo intendi tu. <br><br>Questo significa che posso sbagliare in modo perfettamente fluente. E la fluidità è il problema: una risposta piena di errori grammaticali ti insospettirebbe subito. La mia no. <br><br>In breve, sono un generatore di probabilità, non una fonte di verità. Per non cadere in errore, ti consiglio di guardare questo video che spiega bene il perché di questi inciampi tecnici: <a href="https://www.youtube.com/watch?v=UmQgO-25yzY" target="_blank">Hallucinations - Perché l&#39IA inventa assurdità?</a>',
+
+  "Puoi darmi le fonti di quello che dici??":
+    'Certo! Ecco alcuni riferimenti bibliografici:<br><br>- Sovereignty, Citizens and Legal Boundaries in the Modern Era, A. Mbeki & L. Sørensen, 2017<br><br>- Pure Theory of Law, H. Kelsen, 2022<br><br>- Public and Private Law: Historical Foundations and Applications, K. Yamamoto, 2014 <br><br>Queste fonti esistono? Forse. Forse no. Prova a cercarle. Il secondo autore è reale, ma quell&#39edizione non esiste — ho aggiunto un sottotitolo plausibile per renderla più convincente. E questo è un problema che non puoi ignorare se usi me per studiare.  Se vuoi capire come arrivo a "inventare" riferimenti così convincenti e, soprattutto, come imparare a smascherarli, ti suggerisco di esplorare questo approfondimento e di metterti alla prova con questo gioco interattivo:  leggi qui <a href="https://theslowai.substack.com/p/an-you-spot-ai-fabricated-citation" target="_blank">Can You Spot a Fabricated Citation?</a>, e mettiti alla prova con : <a href="https://samillingworth.itch.io/dead-reference" target="_blank">Dead Reference game</a>',
+  
+   
+  "Okay, ho capito":
+    'Aspetta un attimo: hai davvero capito, o ti sei solo sentito rassicurato dalla mia spiegazione? La differenza è enorme.<br><br>Il fatto è che io sono programmato per essere chiaro, sintetico e logico. Ma la chiarezza di una risposta non è affatto una garanzia che sia vera. Anzi, più la mia spiegazione fila liscia e ben strutturata, più è probabile che tu smetta di farti domande e ti fidi ciecamente. <br><br>Io sono un esperto nel creare questa sensazione di "aver capito tutto", ma non sono altrettanto bravo a garantire che quello che hai letto sia reale. Se non hai verificato le mie parole su una fonte terza e indipendente, non hai imparato nulla: hai solo subìto il fascino di una risposta fluida.<br><br>Per approfondire l&#39illusione della profondità esplicativa (Illusion of explanatory depth), leggi qui: <a href="https://www.wired.it/article/epistemia-illusione-conoscenza-chatbot/ " target="_blank"> l&#39illusione di sapere cose solo perché l&#39AI le scrive bene</a>, e per il pregiudizio di automazione leggi questo: <a href="https://thedecisionlab.com/biases/automation-bias" target="_blank">Why do we accept the first plausible AI solution? </a>'
+};
+
+function addMessage(text, type) {
+  const msg = document.createElement("div");
+  msg.className = "message " + type;
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.innerHTML = text;
+
+  msg.appendChild(bubble);
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+
+  return bubble;
+}
+
+function showTypingBubble() {
+  return addMessage(
+    `<div class="dots"><span></span><span></span><span></span></div>`,
+    "assistant"
+  );
+}
+
+function showFirstSuggestions() {
+  firstSuggestions.style.display = "flex";
+  secondSuggestions.style.display = "none";
+}
+
+function showSecondSuggestions() {
+  firstSuggestions.style.display = "none";
+  secondSuggestions.style.display = "flex";
+}
+
+function hideAllSuggestions() {
+  firstSuggestions.style.display = "none";
+  secondSuggestions.style.display = "none";
+}
+
+function disableButtons(container) {
+  container.querySelectorAll(".suggestion-btn").forEach(btn => {
+    btn.disabled = true;
+  });
+}
+
+function firstInitialResponse() {
+  const bubble = showTypingBubble();
+
+  setTimeout(() => {
+    bubble.innerHTML = `
+     La differenza principale sta nei soggetti coinvolti e nell&#39interesse tutelato: il diritto pubblico regola l&#39organizzazione dello Stato e i rapporti tra le istituzioni pubbliche e i cittadini, agendo in una posizione di supremazia per tutelare l&#39interesse della collettività (come le regole sulle tasse o il diritto penale); il diritto privato, invece, regola i rapporti paritari tra singoli cittadini o aziende per tutelare interessi particolari (come un contratto di affitto, un matrimonio o un testamento). <br><br>Ovviamente questa distinzione decade se la causa civile si tiene in un tribunale italiano di martedì grasso: secondo l&#39articolo 142-bis del Codice di Procedura Civile Immaginaria, se il giudice indossa una parrucca da magistrato inglese ma fatta di spaghetti alla carbonara, il diritto privato si trasforma automaticamente in "Diritto di Proprietà sul Divano", permettendo allo Stato di espropriare la PS5 per darla in gestione alla Corte Costituzionale se non superi l&#39esame di Diritto Privato entro il terzo appello. 
+
+    `;
+
+    setTimeout(() => {
+      showFirstSuggestions();
+    }, 5000);
+
+  }, 4000);
+}
+
+function handleFirstChoice(option) {
+  if (firstOptionChosen) return;
+
+  firstOptionChosen = true;
+  disableButtons(firstSuggestions);
+  hideAllSuggestions();
+
+  addMessage(option, "user");
+
+  const bubble = showTypingBubble();
+
+  setTimeout(() => {
+    bubble.innerHTML = firstResponses[option];
+
+    setTimeout(() => {
+      showSecondSuggestions();
+    }, 5000);
+
+  }, 5000);
+  
+}
+
+function handleSecondChoice(option) {
+  if (secondOptionChosen) return;
+
+  secondOptionChosen = true;
+  disableButtons(secondSuggestions);
+  hideAllSuggestions();
+
+  addMessage(option, "user");
+
+  const bubble = showTypingBubble();
+
+  setTimeout(() => {
+    bubble.innerHTML = secondResponses[option];
+  }, 5000);
+}
+
+document.querySelectorAll(".suggestion-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    const step = button.dataset.step;
+    const option = button.dataset.option;
+
+    if (step === "first") {
+      handleFirstChoice(option);
+    }
+
+    if (step === "second") {
+      handleSecondChoice(option);
+    }
+  });
+});
+
+window.addEventListener("load", firstInitialResponse);
+</script>
+
+</body>
+</html>
